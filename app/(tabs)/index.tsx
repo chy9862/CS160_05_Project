@@ -1,7 +1,8 @@
 import React, {useState,useEffect} from 'react';
-import { Text, View, StyleSheet, TouchableOpacity,TextInput } from 'react-native';
+import { Text, View, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity,TextInput } from 'react-native';
 import { Ionicons,MaterialIcons } from '@expo/vector-icons'; // Import Ionicons for the plus sign
 import { BarCodeScanner } from 'expo-barcode-scanner'; // Import BarCodeScanner from Expo
+import FoodItem from '@/components/FoodItem';
 
 export default function FoodInventoryScreen() {
   
@@ -10,35 +11,39 @@ export default function FoodInventoryScreen() {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView>
+      <View style={styles.container}>
 
-      {/* Create the top bar including search bar, add button , barcode scanner */}
-      <View style={styles.topBar}> 
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-        <View style={styles.iconContainer}>
-          <TouchableOpacity style={styles.iconButton} onPress={() => console.log('Barcode scanner button pressed')}>
-            <MaterialIcons name="qr-code-scanner" size={30} color="#3dabff" /> 
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton} onPress={() => console.log('Plus button pressed')}>
-            <Ionicons name="add-circle" size={30} color="#3dabff" /> 
-          </TouchableOpacity>
+        {/* Create the top bar including search bar, add button , barcode scanner */}
+        <View style={styles.topBar}> 
+          <TextInput
+            style={styles.searchBar}
+            placeholder="Search"
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
+          <View style={styles.iconContainer}>
+            <TouchableOpacity style={styles.iconButton} onPress={() => console.log('Barcode scanner button pressed')}>
+              <MaterialIcons name="qr-code-scanner" size={30} color="#3dabff" /> 
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.iconButton} onPress={() => console.log('Plus button pressed')}>
+              <Ionicons name="add-circle" size={30} color="#3dabff" /> 
+            </TouchableOpacity>
+          </View>
         </View>
+
+        
+
+        {/* List of the Food */}
+        <ScrollView>
+          <View style={styles.foodList}>
+            <FoodItem />
+          </View>
+        </ScrollView>
+
+
       </View>
-
-      
-
-      {/* List of the Food */}
-      <View style={styles.content}>
-        <Text>Here is the list of food</Text>
-      </View>
-
-
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -86,5 +91,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  foodList: {
+    flex: 10,
+    justifyContent: 'center',
+    padding: 16
+  }
 });
 

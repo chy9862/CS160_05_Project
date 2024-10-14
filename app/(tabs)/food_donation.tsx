@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from 'react-native';
 
-export default function MealPlanningScreen() {
+export default function FoodDonationScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>About Food Donation</Text>
