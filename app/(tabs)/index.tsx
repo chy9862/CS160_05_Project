@@ -2,13 +2,11 @@ import React, {useState,useEffect} from 'react';
 import { Text, View, ScrollView, SafeAreaView, StyleSheet, TouchableOpacity,TextInput } from 'react-native';
 import { Ionicons,MaterialIcons } from '@expo/vector-icons'; // Import Ionicons for the plus sign
 import { BarCodeScanner } from 'expo-barcode-scanner'; // Import BarCodeScanner from Expo
-import FoodItem from '@/components/FoodItem';
+import FoodItem from '@/components/FoodItem/FoodItem';
 
 export default function FoodInventoryScreen() {
   
   const [searchQuery, setSearchQuery] = useState('');
-
-
 
   return (
     <SafeAreaView>
