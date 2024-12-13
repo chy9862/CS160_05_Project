@@ -24,7 +24,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: '',
-          tabBarLabel: 'Pantry',
+          tabBarLabel: 'Inventory',
           headerStyle: {
             height: 140, // Set the height of the header
             backgroundColor: '#ffffff', // Optional: Change background color for visibility
