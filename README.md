@@ -1,4 +1,17 @@
-# Welcome to your Expo app 👋
+# Project Set Up
+Frontend Requirements:
+- React Native (Requires requires yarn and expo)
+- Javascript
+- Typescript  
+
+Backend Requirements:
+- cd into backend/ directory
+- python3 -m venv venv (to create a virtual environment)
+- source venv/bin/activate (activate virtual environment)
+- pip install -r requirements.txt (install required dependencies for project)
+- python app.py (start Flask web server)
+
+# Setting Up Expo
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
