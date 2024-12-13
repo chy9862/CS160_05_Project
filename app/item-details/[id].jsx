@@ -1,6 +1,9 @@
 import { useNavigation, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, ActivityIndicator, TouchableOpacity} from "react-native";
+import axios from "axios";
+
+const BASE_URL = "http://192.168.1.238:5000";
 
 const ItemDetails = () => {
   const navigation = useNavigation();
@@ -31,19 +34,38 @@ const ItemDetails = () => {
 
   // State to hold item details
   const [itemDetails, setItemDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Dynamically set the header title
-    if (id && mockData[id]) {
-      const item = mockData[id];
-      navigation.setOptions({
-        title: `Details - ${item.name}`,
-      });
+    if (id) {
+        axios
+          .get(`${BASE_URL}/items/${id}`)
+          .then((response) => {
+            const item = response.data;
+  
+            
+            navigation.setOptions({
+              title: `Item Details`,
+            });
+  
+            setItemDetails(item);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.error("Error fetching item details:", error);
+            setLoading(false);
+          });
+      }
+    }, [id]);
 
-      // Populate item details
-      setItemDetails(item);
-    }
-  }, [id]);
+  if (loading) {
+        return (
+          <View style={styles.container}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        );
+      }
+
 
   // If item is not found, display an error message
   if (!itemDetails) {
@@ -58,8 +80,15 @@ const ItemDetails = () => {
     <View style={styles.container}>
       <Image source={{ uri: itemDetails.imageURL }} style={styles.image} />
       <Text style={styles.title}>{itemDetails.name}</Text>
+      <Text style={styles.info}>Size: {itemDetails.size}</Text>
       <Text style={styles.info}>Expiration Date: {itemDetails.expirationDate}</Text>
       <Text style={styles.info}>Quantity: {itemDetails.quantity}</Text>
+
+      <TouchableOpacity
+        style={styles.deleteButton}>
+        <Text style={styles.buttonText}>Delete Item</Text>
+      </TouchableOpacity>
+      
     </View>
   );
 };
@@ -69,28 +98,50 @@ export default ItemDetails;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
     padding: 16,
     backgroundColor: "#fff",
   },
+
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+
   image: {
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 300,
     marginBottom: 20,
     borderRadius: 10,
+    alignSelf :"center",
+    
   },
+
+  deleteButton: {
+    backgroundColor: '#ff0000',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignSelf: 'center',
+    marginTop: 90
+  },
+
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 15,
+    alignSelf :"center",
   },
+
   info: {
     fontSize: 18,
-    marginBottom: 5,
+    marginBottom: 10,
   },
+
   errorText: {
     fontSize: 18,
     color: "red",
   },
+
 });
