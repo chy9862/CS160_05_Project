@@ -5,9 +5,9 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     cardsContainer: {
-        marginTop: 16,
-        paddingHorizontal: 16,
-        height: "28%"
+        marginTop: 0,
+        paddingHorizontal: 0,
+        height: "100%"
     },
     tab: (activeFoodType, item) => ({
         paddingVertical: 5,
